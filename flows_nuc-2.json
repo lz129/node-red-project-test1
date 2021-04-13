@@ -12,7 +12,37 @@
         "name": "Subflow 1",
         "info": "",
         "in": [],
-        "out": []
+        "out": [],
+        "status": {
+            "x": 160,
+            "y": 30,
+            "wires": []
+        }
+    },
+    {
+        "id": "8e338e90.86e05",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
     },
     {
         "id": "292c0666.62b94a",
@@ -71,5 +101,423 @@
         "wires": [
             []
         ]
+    },
+    {
+        "id": "133bb871.e0dc78",
+        "type": "mqtt in",
+        "z": "46011140.f61e8",
+        "name": "",
+        "topic": "test",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8e338e90.86e05",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "x": 380,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "850d7370.2b141",
+        "type": "inject",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "53a07c6d.3bc5ac",
+        "type": "function",
+        "z": "41bc2793.9d2ac",
+        "name": "abc",
+        "func": "\nreturn msg;",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "// Code added here will be run when the\n// node is being stopped or re-deployed.\nlet a = b",
+        "libs": [],
+        "x": 330,
+        "y": 360,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "87bd706a.aec93",
+        "type": "comment",
+        "z": "41bc2793.9d2ac",
+        "name": "Create an HTTP Endpoint",
+        "info": "The `HTTP In` and `HTTP Response` pair of nodes are the starting point for all HTTP endpoints you create.\n\nAny flow that starts with an `HTTP In` node must have a path to an `HTTP Response` node otherwise requests will eventually timeout.\n\nThe `HTTP Response` node uses the `payload` property of messages it receives as the body of the response. Other properties can be used to further customize the response - they are covered in other recipes.\n\nThe `Template` node provides a convenient way to embed a body of content into a flow. It may be desirable to maintain such static content outside of the flow.\n\nSee Node-RED cookbook [item](https://cookbook.nodered.org/http/create-an-http-endpoint) for details.",
+        "x": 690,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "7f10afe.b1faa5",
+        "type": "http in",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "url": "/hello",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 700,
+        "y": 140,
+        "wires": [
+            [
+                "db134063.83b7a"
+            ]
+        ]
+    },
+    {
+        "id": "d5ce67fc.e6e608",
+        "type": "http response",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 950,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "5a89ce70.db6d5",
+        "type": "http request",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "http://localhost:1880/hello",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 850,
+        "y": 280,
+        "wires": [
+            [
+                "18b48ed8.1072e1"
+            ]
+        ]
+    },
+    {
+        "id": "31f7aabb.3fbe06",
+        "type": "inject",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 700,
+        "y": 280,
+        "wires": [
+            [
+                "5a89ce70.db6d5"
+            ]
+        ]
+    },
+    {
+        "id": "18b48ed8.1072e1",
+        "type": "debug",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "3c61c12c.5abaae",
+        "type": "comment",
+        "z": "41bc2793.9d2ac",
+        "name": "Send HTTP request: http://localhost:1880/hello",
+        "info": "`http request` node can be used to make an **HTTP GET** request.\n\nSee Node-RED cookbook [item](https://cookbook.nodered.org/http/simple-get-request) for details.",
+        "x": 760,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "db134063.83b7a",
+        "type": "template",
+        "z": "41bc2793.9d2ac",
+        "name": "page",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "html",
+        "syntax": "mustache",
+        "template": "<html>\n    <head></head>\n    <body>\n        <h1>Hello World!</h1>\n    </body>\n</html>",
+        "output": "str",
+        "x": 830,
+        "y": 140,
+        "wires": [
+            [
+                "d5ce67fc.e6e608"
+            ]
+        ]
+    },
+    {
+        "id": "83e766b1.154438",
+        "type": "http request",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 850,
+        "y": 360,
+        "wires": [
+            [
+                "188bc18.5487a3f"
+            ]
+        ]
+    },
+    {
+        "id": "89c4d7a7.f8d798",
+        "type": "inject",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "url",
+                "v": "http://localhost:1880/hello",
+                "vt": "str"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 700,
+        "y": 360,
+        "wires": [
+            [
+                "83e766b1.154438"
+            ]
+        ]
+    },
+    {
+        "id": "188bc18.5487a3f",
+        "type": "debug",
+        "z": "41bc2793.9d2ac",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1010,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "a65364a3.c72a58",
+        "type": "comment",
+        "z": "41bc2793.9d2ac",
+        "name": "Set URL in HTTP request node setting panel",
+        "info": "`http request` node can be used to make an **HTTP GET** request.\n\nSee Node-RED cookbook [item](https://cookbook.nodered.org/http/simple-get-request) for details.",
+        "x": 950,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "47396a8e.6804f4",
+        "type": "comment",
+        "z": "41bc2793.9d2ac",
+        "name": "Set URL via url property of input message of HTTP request node",
+        "info": "Target URL of `http request` node can be specified via `url` property of input message.\n\nSee Node-RED cookbook [item](https://cookbook.nodered.org/http/set-request-url) for details.",
+        "x": 1010,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "1cc0f1f9.a7742e",
+        "type": "function",
+        "z": "46011140.f61e8",
+        "name": "abc",
+        "func": "\nreturn msg;",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "// Code added here will be run when the\n// node is being stopped or re-deployed.\nlet a = b",
+        "libs": [],
+        "x": 950,
+        "y": 240,
+        "wires": [
+            [],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "84222b92.d65d18",
+        "type": "inject",
+        "z": "46011140.f61e8",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hello, World!",
+        "payloadType": "str",
+        "x": 470,
+        "y": 640,
+        "wires": [
+            [
+                "b4b9f603.739598"
+            ]
+        ]
+    },
+    {
+        "id": "7b014430.dfd94c",
+        "type": "comment",
+        "z": "46011140.f61e8",
+        "name": "Write string to a file, then read from the file",
+        "info": "File node can write string to a file.",
+        "x": 500,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "b4b9f603.739598",
+        "type": "file",
+        "z": "46011140.f61e8",
+        "name": "",
+        "filename": "/tmp/hello.txt",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "true",
+        "encoding": "none",
+        "x": 660,
+        "y": 640,
+        "wires": [
+            [
+                "6dc01cac.5c4bf4"
+            ]
+        ]
+    },
+    {
+        "id": "2587adb9.7e60f2",
+        "type": "debug",
+        "z": "46011140.f61e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1050,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "6dc01cac.5c4bf4",
+        "type": "file in",
+        "z": "46011140.f61e8",
+        "name": "",
+        "filename": "/tmp/hello.txt",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "x": 860,
+        "y": 640,
+        "wires": [
+            [
+                "2587adb9.7e60f2"
+            ]
+        ]
+    },
+    {
+        "id": "f4b4309a.3b78a",
+        "type": "comment",
+        "z": "46011140.f61e8",
+        "name": "↑read result from file",
+        "info": "",
+        "x": 870,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "672d3693.3cabd8",
+        "type": "comment",
+        "z": "46011140.f61e8",
+        "name": "↓write to /tmp/hello.txt",
+        "info": "",
+        "x": 680,
+        "y": 600,
+        "wires": []
     }
 ]
